@@ -7,7 +7,7 @@ authors = ["tpmccallum <tim.mccallum@fermyon.com>"]
 description = ""
 
 [[trigger.http]]
-route = "/user/..."
+route = "/..."
 component = "my-component"
 
 [component.my-component]
