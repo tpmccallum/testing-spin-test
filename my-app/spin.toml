@@ -1,0 +1,25 @@
+spin_manifest_version = 2
+
+[application]
+name = "my-app"
+version = "0.1.0"
+authors = ["tpmccallum <tim.mccallum@fermyon.com>"]
+description = ""
+
+[[trigger.http]]
+route = "/..."
+component = "my-component"
+
+[component.my-component]
+source = "my-component/target/wasm32-wasi/release/my_component.wasm"
+allowed_outbound_hosts = []
+key_value_stores = ["default"]
+[component.my-component.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "my-component"
+watch = ["src/**/*.rs", "Cargo.toml"]
+
+[component.my-component.tool.spin-test]
+source = "tests/target/wasm32-wasi/release/tests.wasm"
+build = "cargo component build --release"
+dir = "tests"
