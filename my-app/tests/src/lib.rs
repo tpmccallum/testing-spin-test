@@ -53,13 +53,13 @@ fn cache_hit() {
     let user_json = r#"{"id":123,"name":"Ryan"}"#;
 
     // Configure the app's 'cache' key-value store
-    let key_value = spin_test_virt::key_value::Store::open("default");
+    let key_value = spin_test_virt::key_value::Store::open("cache");
     // Set a specific key with a specific value
-    key_value.set("user_id", user_json.as_bytes());
+    key_value.set("123", user_json.as_bytes());
 
     // Make the request against the Spin app
     let request = wasi::http::types::OutgoingRequest::new(wasi::http::types::Headers::new());
-    request.set_path_with_query(Some("/user_id?id=123")).unwrap();
+    request.set_path_with_query(Some("/user?123")).unwrap();
     let response = spin_test_sdk::perform_request(request);
 
     // Assert the response status and body

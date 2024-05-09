@@ -21,13 +21,13 @@ fn handle_request(req: Request) -> anyhow::Result<impl IntoResponse> {
         }
         Method::Get => {
             // Get the value associated with the request URI, or return a 404 if it's not present
-            match store.get(req.path())? {
+            match store.get(req.query())? {
                 Some(value) => {
-                    println!("Found value for the key {:?}", req.path());
+                    println!("Found value for the key {:?}", req.query());
                     (200, Some(value))
                 }
                 None => {
-                    println!("No value found for the key {:?}", req.path());
+                    println!("No value found for the key {:?}", req.query());
                     (404, None)
                 }
             }
